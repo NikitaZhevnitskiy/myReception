@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">MyReception</string>
+    <string name="logo_image">logo image</string>
+    <string name="start">START</string>
+    <string name="title_activity_my_reception_home">MyReceptionHome</string>
+    <string name="title_hotel">Hotel</string>
+    <string name="title_services">Services</string>
+    <string name="title_places">Places</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="description">Description</string>
+</resources>
