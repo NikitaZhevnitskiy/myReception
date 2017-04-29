@@ -5,11 +5,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.activity.ChooseHotelActivity">
+    tools:context=".view.activity.ChooseHotelActivity"
+    android:background="@color/colorAccent"
+    xmlns:wheel="http://schemas.android.com/apk/res-auto">
 
+
+    <com.pnikosis.materialishprogress.ProgressWheel
+        android:id="@+id/choose_hotel_progress_wheel"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        wheel:matProg_barColor="@color/colorPrimary"
+        wheel:matProg_progressIndeterminate="true"/>
 
     <ListView
         android:id="@+id/choose_hotel_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        />
+
 </RelativeLayout>
