@@ -6,39 +6,52 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.activity.MainActivity"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimary"
+    >
 
-    <Button
-        android:id="@+id/main_activity_start_btn"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_alignParentBottom="true"
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="158dp"
-        android:background="@drawable/rounded_button"
-        android:text="@string/start"
+        android:text="@string/your_personal_reception"
+        android:textAlignment="center"
         android:textColor="@android:color/white"
-        android:textStyle="bold"/>
+        android:textSize="30sp"
+        android:textStyle="bold|italic"/>
 
     <ImageView
         android:id="@+id/main_activity_logo_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/logo_image"
-        app:srcCompat="@drawable/logo"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"/>
-
-    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:background="@color/colorPrimaryBackground"
+        android:layout_marginTop="43dp"
+        android:contentDescription="@string/logo_image"
+        android:tint="@color/colorAccent"
+        app:srcCompat="@drawable/ic_reception"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true"/>
 
-        android:id="@+id/frameLayout">
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@color/colorAccent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
 
     </FrameLayout>
+
+    <Button
+        android:id="@+id/main_activity_start_btn"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/rounded_button"
+        android:text="@string/start"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        android:layout_below="@+id/main_activity_logo_img"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="71dp"/>
 
 </RelativeLayout>
