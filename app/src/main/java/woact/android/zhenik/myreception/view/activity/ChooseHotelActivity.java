@@ -16,7 +16,7 @@ import java.util.List;
 import woact.android.zhenik.myreception.R;
 import woact.android.zhenik.myreception.datalayer.dao.CacheDao;
 import woact.android.zhenik.myreception.datalayer.entities.Hotel;
-import woact.android.zhenik.myreception.utils.ApplicationContex;
+import woact.android.zhenik.myreception.utils.ReceptionAppContext;
 import woact.android.zhenik.myreception.view.adapter.HotelAdapter;
 
 public class ChooseHotelActivity extends AppCompatActivity {
@@ -61,7 +61,7 @@ public class ChooseHotelActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Hotel hotel = ((Hotel) mHotelsList.getItemAtPosition(position));
                 final Intent intent = new Intent(getApplicationContext(), MyReceptionHome.class);
-                intent.putExtra(ApplicationContex.HOTEL, hotel);
+                intent.putExtra(ReceptionAppContext.HOTEL, hotel);
                 mProgressWheel.setVisibility(View.VISIBLE);
 
                 // emulate download database to cache

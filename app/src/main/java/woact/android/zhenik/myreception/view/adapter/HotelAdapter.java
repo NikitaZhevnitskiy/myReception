@@ -34,7 +34,7 @@ public class HotelAdapter extends ArrayAdapter<Hotel> {
         if (v == null) {
             LayoutInflater vi;
             vi = LayoutInflater.from(getContext());
-            v = vi.inflate(R.layout.hotel_item, null);
+            v = vi.inflate(R.layout.item_list_hotel, null);
         }
         Hotel hotel = getHotel(position);
         if (hotel != null) {
