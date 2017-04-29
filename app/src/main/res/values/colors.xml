@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#f07c00</color>
-    <color name="colorPrimaryDark">#ffc107</color>
+    <color name="colorPrimary">#2980B9</color>
+    <color name="colorPrimaryDark">#39A6F0</color>
+    <color name="colorAccent">#ECF0F1</color>
+
+
     <color name="colorPrimaryBackground">#f9f994</color>
-    <color name="colorAccent">#96d99d</color>
     <color name="mainBtn">#0ab21b</color>
+
+<!--Theme 1-->
+    <!--<color name="colorPrimary">#009A83</color>-->
+    <!--<color name="colorPrimaryDark">#003D2D</color>-->
+    <!--<color name="colorAccent">#77D3C0</color>-->
+<!--Theme 2-->
+    <!--<color name="colorPrimary">#8FC4D9</color>-->
+    <!--<color name="colorPrimaryDark">#024059</color>-->
+    <!--<color name="colorAccent">#12A67C</color>-->
+
+
 </resources>
