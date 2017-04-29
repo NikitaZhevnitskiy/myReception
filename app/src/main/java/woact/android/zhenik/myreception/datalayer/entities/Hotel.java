@@ -1,6 +1,8 @@
 package woact.android.zhenik.myreception.datalayer.entities;
 
-public class Hotel {
+import java.io.Serializable;
+
+public class Hotel implements Serializable {
     private long id;
     private String name;
     private String description;
