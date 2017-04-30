@@ -1,7 +1,9 @@
 package woact.android.zhenik.myreception.datalayer.dao;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.test.InstrumentationRegistry;
+import android.util.Log;
 
 import org.junit.After;
 import org.junit.Before;
@@ -11,15 +13,16 @@ import java.util.List;
 
 import woact.android.zhenik.myreception.datalayer.DatabaseHelper;
 import woact.android.zhenik.myreception.datalayer.DatabaseManager;
-import woact.android.zhenik.myreception.datalayer.DummyDataFactory;
+import woact.android.zhenik.myreception.datalayer.CacheDataFactory;
 import woact.android.zhenik.myreception.datalayer.entities.Hotel;
 
 import static org.junit.Assert.*;
+import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.TABLE_HOTELS;
 
 public class HotelDaoTest {
 
-    private static final String TAG="DummyDataFactoryTest:> ";
-    private DummyDataFactory ddf;
+    private static final String TAG="CacheDataFactoryTest:> ";
+    private CacheDataFactory ddf;
     private HotelDao hotelDao;
     private long id1;
     private long id2;
@@ -31,7 +34,7 @@ public class HotelDaoTest {
         Context context = InstrumentationRegistry.getTargetContext();
         DatabaseHelper mDatabaseHelper = DatabaseHelper.getHelper(context);
         DatabaseManager.initializeInstance(mDatabaseHelper);
-        ddf = new DummyDataFactory();
+        ddf = new CacheDataFactory();
         hotelDao = new HotelDao();
         createTestData();
     }
@@ -45,11 +48,17 @@ public class HotelDaoTest {
 
     @After
     public void tearDown(){
-        ddf.clearHotelTable();
+        clearTable(TABLE_HOTELS);
         id1=-1;
         id2=-1;
         ddf=null;
         hotelDao=null;
+    }
+    private void clearTable(String tableName){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        db.delete(tableName, null, null);
+        DatabaseManager.getInstance().closeDatabase();
+        Log.d(TAG, "---table clean---\n"+tableName);
     }
 
     @Test
