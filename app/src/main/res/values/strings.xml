@@ -19,4 +19,5 @@
     <string name="restaurants_bars_icon"><![CDATA[Restaurants & Bars icon]]></string>
     <string name="rooms_icon">Rooms icon</string>
     <string name="your_personal_reception">Your personal reception</string>
+    <string name="hotel_fasade">Hotel fasade</string>
 </resources>
