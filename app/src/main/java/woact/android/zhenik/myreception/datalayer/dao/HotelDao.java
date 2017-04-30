@@ -19,7 +19,6 @@ import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.TABLE_HO
 
 public class HotelDao {
 
-
     public Hotel getHotel(long id) {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         Cursor cursor = db.query(
