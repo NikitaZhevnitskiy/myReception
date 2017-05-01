@@ -2,24 +2,22 @@ package woact.android.zhenik.myreception.view.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.pnikosis.materialishprogress.ProgressWheel;
 
 import woact.android.zhenik.myreception.R;
+import woact.android.zhenik.myreception.datalayer.CacheDataLoader;
 import woact.android.zhenik.myreception.datalayer.DatabaseHelper;
 import woact.android.zhenik.myreception.datalayer.DatabaseManager;
-import woact.android.zhenik.myreception.datalayer.DummyDataFactory;
-import woact.android.zhenik.myreception.datalayer.entities.Hotel;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button mStartBtn;
+    private CacheDataLoader cdf;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +26,12 @@ public class MainActivity extends AppCompatActivity {
         mStartBtn=(Button)findViewById(R.id.main_activity_start_btn);
         initBtnListener();
 
+        getSupportActionBar().setTitle("");
+//        getSupportActionBar().hide();
+
         // db manager init
         DatabaseManager.initializeInstance(DatabaseHelper.getHelper(getApplicationContext()));
+        cdf = new CacheDataLoader();
         databaseSetup();
 
     }
@@ -52,28 +54,14 @@ public class MainActivity extends AppCompatActivity {
     private void databaseSetup(){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         if (!prefs.getBoolean("firstTime", false)) {
-            createDummyData();
+            cdf.createDummyData();
             SharedPreferences.Editor editor = prefs.edit();
             editor.putBoolean("firstTime", true);
-            editor.commit();
+//            editor.commit();
+            editor.apply();
         }
     }
 
-    private void createDummyData() {
-        DummyDataFactory ddf =new DummyDataFactory();
-        ddf.createHotel(new Hotel(1,
-                                  "Dream Hotel",
-                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-                                  "Chr. Krohgs gate 32, 0186 Oslo",
-                                  22057550,
-                                  "post@westerdals.no"));
-        ddf.createHotel(new Hotel(2,
-                                  "Another Hotel",
-                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-                                  "Chr. Krohgs gate 32, 0186 Oslo",
-                                  22057550,
-                                  "post@westerdals.no"));
 
-    }
 
 }
