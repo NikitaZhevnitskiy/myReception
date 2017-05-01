@@ -15,17 +15,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "reception";
     // Table Names
     public static final String TABLE_HOTELS = "hotels";
+    public static final String TABLE_ROOM_TYPES = "room_types";
+    public static final String TABLE_ROOMS = "rooms";
+    public static final String TABLE_HOTEL_ROOM = "hotel_room";
     // Common column names
     public static final String KEY_ID = "id";
+    public static final String KEY_DESCRIPTION = "description";
     // USERS Table - column names
     public static final String KEY_HOTEL_NAME = "name";
-    public static final String KEY_DESCRIPTION = "description";
     public static final String KEY_ADDRESS = "address";
     public static final String KEY_PHONE = "phone";
     public static final String KEY_EMAIL = "email";
+    // ROOMS_TYPES Table - columns
+    public static final String KEY_TYPE = "type";
+    // ROOMS Table - columns
+    public static final String KEY_TYPE_ID = "type_id";
+    // HOTEL_ROOM Table - columns
+    public static final String KEY_HOTEL_ID = "hotel_id";
+    public static final String KEY_ROOM_ID = "room_id";
+
 
     // users table create statement
-    private static final String CREATE_TABLE_USERS = "CREATE TABLE "
+    private static final String CREATE_TABLE_HOTELS = "CREATE TABLE "
             + TABLE_HOTELS + "("
             + KEY_ID + " INTEGER PRIMARY KEY, "
             + KEY_HOTEL_NAME + " TEXT NOT NULL UNIQUE, "
@@ -33,6 +44,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + KEY_ADDRESS + " TEXT NOT NULL, "
             + KEY_PHONE + " INTEGER, "
             + KEY_EMAIL + " TEXT)";
+
+    // room_types table create statement
+    private static final String CREATE_TABLE_ROOM_TYPES = "CREATE TABLE "
+            + TABLE_ROOM_TYPES + "("
+            + KEY_ID + " INTEGER PRIMARY KEY, "
+            + KEY_TYPE + " TEXT NOT NULL, "
+            + KEY_DESCRIPTION + " TEXT NOT NULL)";
+
+    // rooms table create statement
+    private static final String CREATE_TABLE_ROOMS = "CREATE TABLE "
+            + TABLE_ROOMS + "("
+            + KEY_ID + " INTEGER PRIMARY KEY, "
+            + KEY_TYPE_ID + " INTEGER NOT NULL, "
+            + "FOREIGN KEY ("+ KEY_TYPE_ID+") REFERENCES "+TABLE_ROOM_TYPES+"("+KEY_ID+"))";
+
+    // hotel_room table create statement
+    private static final String CREATE_TABLE_HOTEL_ROOM = "CREATE TABLE "
+            + TABLE_HOTEL_ROOM + "("
+            + KEY_ID + " INTEGER PRIMARY KEY, "
+            + KEY_HOTEL_ID + " INTEGER NOT NULL, "
+            + KEY_ROOM_ID + " INTEGER NOT NULL, "
+            + "FOREIGN KEY ("+ KEY_HOTEL_ID+") REFERENCES "+TABLE_HOTELS+"("+KEY_ID+"),"
+            + "FOREIGN KEY ("+ KEY_ROOM_ID+") REFERENCES "+TABLE_ROOMS+"("+KEY_ID+"))";
+
+
     /**
      * Synchronized singleton
      */
@@ -48,18 +84,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_TABLE_USERS);
-        Log.d(TAG, "db was created");
+        db.execSQL(CREATE_TABLE_HOTELS);
+        Log.d(TAG, " hotels was created");
+        db.execSQL(CREATE_TABLE_ROOM_TYPES);
+        Log.d(TAG, " room_types was created");
+        db.execSQL(CREATE_TABLE_ROOMS);
+        Log.d(TAG, " rooms was created");
+        db.execSQL(CREATE_TABLE_HOTEL_ROOM);
+        Log.d(TAG, " hotel_room was created");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_HOTEL_ROOM);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ROOMS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_HOTELS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ROOM_TYPES);
         Log.d(TAG, "drop tables, change vers from " + oldVersion + " to new " + newVersion);
         onCreate(db);
     }
-
-
 
     @Override
     public void onOpen(SQLiteDatabase db) {
