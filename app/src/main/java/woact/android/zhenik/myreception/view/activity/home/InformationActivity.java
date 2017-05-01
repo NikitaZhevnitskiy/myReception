@@ -1,4 +1,4 @@
-package woact.android.zhenik.myreception.view.activity.information;
+package woact.android.zhenik.myreception.view.activity.home;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,7 +24,7 @@ public class InformationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_information);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("INFORMATION");
-//        initInformation();
+
     }
 
     @Override
