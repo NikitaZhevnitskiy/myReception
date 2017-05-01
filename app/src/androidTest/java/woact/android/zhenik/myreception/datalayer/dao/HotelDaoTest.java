@@ -3,26 +3,28 @@ package woact.android.zhenik.myreception.datalayer.dao;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.runner.AndroidJUnit4;
 import android.util.Log;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.util.List;
 
+import woact.android.zhenik.myreception.datalayer.CacheDataLoader;
 import woact.android.zhenik.myreception.datalayer.DatabaseHelper;
 import woact.android.zhenik.myreception.datalayer.DatabaseManager;
-import woact.android.zhenik.myreception.datalayer.CacheDataFactory;
 import woact.android.zhenik.myreception.datalayer.entities.Hotel;
 
 import static org.junit.Assert.*;
 import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.TABLE_HOTELS;
-
+@RunWith(AndroidJUnit4.class)
 public class HotelDaoTest {
 
-    private static final String TAG="CacheDataFactoryTest:> ";
-    private CacheDataFactory ddf;
+    private static final String TAG="CacheDataLoaderTest:> ";
+    private CacheDataLoader cdf;
     private HotelDao hotelDao;
     private long id1;
     private long id2;
@@ -34,7 +36,7 @@ public class HotelDaoTest {
         Context context = InstrumentationRegistry.getTargetContext();
         DatabaseHelper mDatabaseHelper = DatabaseHelper.getHelper(context);
         DatabaseManager.initializeInstance(mDatabaseHelper);
-        ddf = new CacheDataFactory();
+        cdf = new CacheDataLoader();
         hotelDao = new HotelDao();
         createTestData();
     }
@@ -42,8 +44,8 @@ public class HotelDaoTest {
     private void createTestData() {
         Hotel hotel1 = new Hotel(1,"foo","bar","address", 41, "foo@bar.no");
         Hotel hotel2 = new Hotel("doo","dar","address", 41, "foo@bar.no");
-        id1=ddf.createHotel(hotel1);
-        id2=ddf.createHotel(hotel2);
+        id1= cdf.createHotel(hotel1);
+        id2= cdf.createHotel(hotel2);
     }
 
     @After
@@ -51,7 +53,7 @@ public class HotelDaoTest {
         clearTable(TABLE_HOTELS);
         id1=-1;
         id2=-1;
-        ddf=null;
+        cdf =null;
         hotelDao=null;
     }
     private void clearTable(String tableName){

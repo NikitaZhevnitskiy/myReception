@@ -9,15 +9,19 @@ public class CacheDao {
     private static final String TAG = "CacheDao:> ";
 
     private HotelDao hotelDao;
+    private RoomTypeDao roomTypeDao;
+    private RoomDao roomDao;
 
     private static CacheDao instance;
 
     private CacheDao(){
-        this(new HotelDao());
+        this(new HotelDao(), new RoomTypeDao(), new RoomDao());
     }
 
-    private CacheDao(HotelDao hotelDao){
+    private CacheDao(HotelDao hotelDao, RoomTypeDao roomTypeDao, RoomDao roomDao) {
         this.hotelDao=hotelDao;
+        this.roomTypeDao=roomTypeDao;
+        this.roomDao=roomDao;
     }
 
     public static synchronized CacheDao getInstance() {
@@ -31,4 +35,8 @@ public class CacheDao {
     public HotelDao getHotelDao() {
         return hotelDao;
     }
+
+    public RoomTypeDao getRoomTypeDao() {return roomTypeDao;}
+
+    public RoomDao getRoomDao() {return roomDao;}
 }

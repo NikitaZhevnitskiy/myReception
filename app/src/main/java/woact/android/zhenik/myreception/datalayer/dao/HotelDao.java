@@ -67,6 +67,7 @@ public class HotelDao {
                 hotels.add(hotel);
             } while (cursor.moveToNext());
         }
+        DatabaseManager.getInstance().closeDatabase();
         return hotels;
     }
 }
