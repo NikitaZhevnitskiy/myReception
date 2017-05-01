@@ -9,10 +9,14 @@ public class RoomType implements Serializable {
     private String type;
     private String description;
 
+    public RoomType() {
+    }
+
     public RoomType(String type, String description) {
         this.type = type;
         this.description = description;
     }
+
 
     public RoomType(long id, String type, String description) {
         this.id = id;
