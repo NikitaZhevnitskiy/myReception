@@ -1,28 +1,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              tools:context=".view.fragment.HotelFragment"
+              android:background="@color/colorPrimaryDark"
+              android:gravity="center"
               android:orientation="vertical"
-    android:background="@color/colorPrimaryDark">
+              tools:context=".view.fragment.HotelFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="300dp"
-        android:layout_height="150dp"
-        android:layout_gravity="center_horizontal"
+        android:layout_width="355dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
         android:contentDescription="@string/logo_image"
-        app:srcCompat="@drawable/logo"/>
+        app:srcCompat="@drawable/logo"
+        android:tint="@color/colorPrimaryBackground"/>
 
     <LinearLayout
         android:id="@+id/hotel_fragment_screen_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:ignore="UselessParent">
+        tools:ignore="UselessParent"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -53,6 +56,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/screen_navigation_contacts"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -81,6 +85,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/screen_navigation_rooms"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -100,6 +105,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/screen_navigation_restaurants"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

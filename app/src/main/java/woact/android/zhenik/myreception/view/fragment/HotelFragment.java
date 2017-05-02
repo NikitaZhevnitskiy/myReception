@@ -1,6 +1,5 @@
 package woact.android.zhenik.myreception.view.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import woact.android.zhenik.myreception.R;
-import woact.android.zhenik.myreception.view.activity.information.InformationActivity;
 import woact.android.zhenik.myreception.view.listener.ScreenNavigationListener;
 
 
@@ -31,20 +29,18 @@ public class HotelFragment extends Fragment {
         initNavigationListeners();
         return view;
     }
+
     private void initNavigationListeners(){
 
         ScreenNavigationListener screenNavigationListener = new ScreenNavigationListener(getContext());
         ((LinearLayout)view.findViewById(R.id.screen_navigation_information))
                 .setOnClickListener(screenNavigationListener);
-//                    @Override
-//                    public void onClick(View v) {
-//                        if (v.getId()==R.id.screen_navigation_information){
-//                            startActivity(new Intent(getContext(), InformationActivity.class));
-//                        }
-//                    }
-//                });
-
-
+        ((LinearLayout)view.findViewById(R.id.screen_navigation_contacts))
+                .setOnClickListener(screenNavigationListener);
+        ((LinearLayout)view.findViewById(R.id.screen_navigation_rooms))
+                .setOnClickListener(screenNavigationListener);
+        ((LinearLayout)view.findViewById(R.id.screen_navigation_restaurants))
+                .setOnClickListener(screenNavigationListener);
     }
 
 }
