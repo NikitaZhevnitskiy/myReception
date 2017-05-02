@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    android:layout_margin="5dp"
+    card_view:cardCornerRadius="8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/card_restaurant_foto"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/restaurant">
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/card_restaurant_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/card_restaurant_foto"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:text=""
+            android:textAlignment="center"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            tools:text="Title"/>
+
+        <TextView
+            android:id="@+id/card_restaurant_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/card_restaurant_title"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="15sp"
+            tools:text="Content"/>
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
