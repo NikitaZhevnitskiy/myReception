@@ -2,9 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="woact.android.zhenik.myreception">
 
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -20,6 +23,12 @@
             android:label="@string/title_activity_my_reception_home">
         </activity>
         <activity android:name=".view.activity.ChooseHotelActivity">
+        </activity>
+        <activity android:name=".view.activity.home.InformationActivity">
+        </activity>
+        <activity android:name=".view.activity.home.RoomTypesActivity">
+        </activity>
+        <activity android:name=".view.activity.home.RestaurantsActivity">
         </activity>
     </application>
 

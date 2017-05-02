@@ -28,10 +28,10 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
-    testCompile 'junit:junit:4.12'
-//    Progress bar https://github.com/pnikosis/materialish-progress
+    // Progress bar https://github.com/pnikosis/materialish-progress
     compile 'com.pnikosis:materialish-progress:1.7'
-//    https://github.com/GrenderG/Toasty
+    // New Toasts https://github.com/GrenderG/Toasty
     compile 'com.github.GrenderG:Toasty:1.2.3'
     compile 'com.android.support:cardview-v7:25.3.1'
+    testCompile 'junit:junit:4.12'
 }
