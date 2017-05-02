@@ -15,19 +15,22 @@ import org.junit.runner.RunWith;
 import java.util.Arrays;
 
 import woact.android.zhenik.myreception.datalayer.entities.Hotel;
+import woact.android.zhenik.myreception.datalayer.entities.Restaurant;
 import woact.android.zhenik.myreception.datalayer.entities.RoomType;
 
 import static org.junit.Assert.*;
 import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.KEY_ADDRESS;
 import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.KEY_DESCRIPTION;
 import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.KEY_EMAIL;
-import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.KEY_HOTEL_NAME;
+import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.KEY_NAME;
 import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.KEY_ID;
 import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.KEY_PHONE;
 import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.KEY_TYPE;
 import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.KEY_TYPE_ID;
 import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.TABLE_HOTELS;
+import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.TABLE_HOTEL_RESTAURANT;
 import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.TABLE_HOTEL_ROOM;
+import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.TABLE_RESTAURANTS;
 import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.TABLE_ROOMS;
 import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.TABLE_ROOM_TYPES;
 
@@ -54,6 +57,8 @@ public class CacheDataLoaderTest {
         clearTable(TABLE_HOTEL_ROOM);
         clearTable(TABLE_ROOMS);
         clearTable(TABLE_ROOM_TYPES);
+        clearTable(TABLE_HOTEL_RESTAURANT);
+        clearTable(TABLE_RESTAURANTS);
         clearTable(TABLE_HOTELS);
         hotel1= null;
     }
@@ -86,7 +91,7 @@ public class CacheDataLoaderTest {
         // Assert
         assertEquals(6, cursor.getColumnCount());
         assertEquals(KEY_ID, cursor.getColumnName(0));
-        assertEquals(KEY_HOTEL_NAME, cursor.getColumnName(1));
+        assertEquals(KEY_NAME, cursor.getColumnName(1));
         assertEquals(KEY_DESCRIPTION, cursor.getColumnName(2));
         assertEquals(KEY_ADDRESS, cursor.getColumnName(3));
         assertEquals(KEY_PHONE, cursor.getColumnName(4));
@@ -121,6 +126,22 @@ public class CacheDataLoaderTest {
         assertEquals(2, cursor.getColumnCount());
         assertEquals(KEY_ID, cursor.getColumnName(0));
         assertEquals(KEY_TYPE_ID, cursor.getColumnName(1));
+    }
+
+    @Test
+    public void checkDatabaseColumns_RestaurantTable(){
+        // Arrange
+        String selectQuery = "SELECT  * FROM " + TABLE_RESTAURANTS;
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // log
+        Log.d(TAG, "TABLE NAME: "+ Arrays.asList(cursor.getColumnNames()).toString());
+        // Assert
+        assertEquals(3, cursor.getColumnCount());
+        assertEquals(KEY_ID, cursor.getColumnName(0));
+        assertEquals(KEY_NAME, cursor.getColumnName(1));
+        assertEquals(KEY_DESCRIPTION, cursor.getColumnName(2));
+
     }
 
     @Test
@@ -216,6 +237,52 @@ public class CacheDataLoaderTest {
         assertTrue(hotelRoomId!=-1);
     }
 
+    @Test
+    public void createRestaurant_ValidData(){
+
+        // Act
+        long restaurantId = cdf.createRestaurant(new Restaurant("foo","bar"));
+
+        // Assert
+        assertTrue(restaurantId!=-1);
+
+    }
+    @Test
+    public void createRestaurant_NOTValidData(){
+
+        // Act
+        long restaurantId = cdf.createRestaurant(new Restaurant());
+
+        // Assert
+        assertTrue(restaurantId==-1);
+
+    }
+
+    @Test
+    public void createHotelRestaurant_ValidaData(){
+        // Arrange
+        long hotelId = cdf.createHotel(hotel1);
+        long restaurantId = cdf.createRestaurant(new Restaurant("foo","bar"));
+
+        // Act
+        long hotelRestaurantID = cdf.createHotelRestaurant(hotelId, restaurantId);
+
+        // Assert
+        assertTrue(hotelRestaurantID!=-1);
+    }
+
+    @Test
+    public void createHotelRestaurant_NOTValidaData(){
+        // Arrange
+
+        long restaurantId = cdf.createRestaurant(new Restaurant("foo","bar"));
+
+        // Act
+        long hotelRestaurantID = cdf.createHotelRestaurant(123123l, restaurantId);
+
+        // Assert
+        assertTrue(hotelRestaurantID==-1);
+    }
 
 
 

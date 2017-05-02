@@ -12,7 +12,7 @@ import woact.android.zhenik.myreception.datalayer.entities.Hotel;
 import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.KEY_ADDRESS;
 import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.KEY_DESCRIPTION;
 import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.KEY_EMAIL;
-import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.KEY_HOTEL_NAME;
+import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.KEY_NAME;
 import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.KEY_ID;
 import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.KEY_PHONE;
 import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.TABLE_HOTELS;
@@ -24,7 +24,7 @@ public class HotelDao {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         Cursor cursor = db.query(
                 TABLE_HOTELS,
-                new String[]{KEY_ID, KEY_HOTEL_NAME, KEY_DESCRIPTION, KEY_ADDRESS, KEY_PHONE, KEY_EMAIL},
+                new String[]{KEY_ID, KEY_NAME, KEY_DESCRIPTION, KEY_ADDRESS, KEY_PHONE, KEY_EMAIL},
                 KEY_ID + "=?",
                 new String[]{String.valueOf(id)},
                 null, null, null, null);

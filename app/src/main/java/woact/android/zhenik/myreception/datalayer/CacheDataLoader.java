@@ -1,17 +1,11 @@
 package woact.android.zhenik.myreception.datalayer;
 
 import android.content.ContentValues;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import woact.android.zhenik.myreception.datalayer.dao.HotelDao;
 import woact.android.zhenik.myreception.datalayer.entities.Hotel;
-import woact.android.zhenik.myreception.datalayer.entities.Room;
+import woact.android.zhenik.myreception.datalayer.entities.Restaurant;
 import woact.android.zhenik.myreception.datalayer.entities.RoomType;
 
 import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.*;
@@ -33,7 +27,7 @@ public class CacheDataLoader {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_ID, hotel.getId());
-        values.put(KEY_HOTEL_NAME, hotel.getName());
+        values.put(KEY_NAME, hotel.getName());
         values.put(KEY_DESCRIPTION, hotel.getDescription());
         values.put(KEY_ADDRESS, hotel.getAddress());
         values.put(KEY_PHONE, hotel.getPhone());
@@ -71,6 +65,26 @@ public class CacheDataLoader {
         return hotelRoomId;
     }
 
+    public long createRestaurant(Restaurant restaurant){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAME, restaurant.getName());
+        values.put(KEY_DESCRIPTION, restaurant.getDescription());
+        long restaurantId = db.insert(TABLE_RESTAURANTS, null, values);
+        DatabaseManager.getInstance().closeDatabase();
+        return restaurantId;
+    }
+
+    public long createHotelRestaurant(long hotelId, long restaurantId){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_HOTEL_ID, hotelId);
+        values.put(KEY_RESTAURANT_ID, restaurantId);
+        long hotelRestaurantId = db.insert(TABLE_HOTEL_RESTAURANT, null, values);
+        DatabaseManager.getInstance().closeDatabase();
+        return hotelRestaurantId;
+    }
+
 
 
     /**
@@ -106,6 +120,15 @@ public class CacheDataLoader {
         long hotel_room3=createHotelRoom(hotelId1, roomId3);
         long hotel_room4=createHotelRoom(hotelId2, roomId1);
         long hotel_room5=createHotelRoom(hotelId2, roomId2);
+
+        // create restaurants
+        long restaurantId1 = createRestaurant(new Restaurant("Full moon", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, s"));
+        long restaurantId2 = createRestaurant(new Restaurant("B12", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, s"));
+
+        // register restaurants to hotels
+        long hotel_restaurant1 = createHotelRestaurant(hotelId1, restaurantId1);
+        long hotel_restaurant2 = createHotelRestaurant(hotelId1, restaurantId2);
+        long hotel_restaurant3 = createHotelRestaurant(hotelId2, restaurantId2);
 
     }
 
