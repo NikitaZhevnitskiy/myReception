@@ -7,14 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import es.dmoral.toasty.Toasty;
 import woact.android.zhenik.myreception.R;
 import woact.android.zhenik.myreception.datalayer.dao.CacheDao;
 import woact.android.zhenik.myreception.datalayer.entities.Hotel;
-import woact.android.zhenik.myreception.datalayer.entities.RoomType;
 import woact.android.zhenik.myreception.utils.ReceptionAppContext;
 import woact.android.zhenik.myreception.view.adapter.RoomTypesRecyclerAdapter;
 
@@ -29,7 +25,7 @@ public class RoomTypesActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         cacheDao=CacheDao.getInstance();
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerList);
+        recyclerView = (RecyclerView) findViewById(R.id.room_types_recyclerList);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
