@@ -12,18 +12,14 @@ import java.util.List;
 import woact.android.zhenik.myreception.R;
 import woact.android.zhenik.myreception.datalayer.entities.Hotel;
 
-/**
- * Created by NIK on 27/04/2017.
- */
-
-public class HotelAdapter extends ArrayAdapter<Hotel> {
+public class HotelArrayAdapter extends ArrayAdapter<Hotel> {
     private List<Hotel> hotels;
 
-    public HotelAdapter(Context context, int textViewResourceId) {
+    public HotelArrayAdapter(Context context, int textViewResourceId) {
         super(context, textViewResourceId);
     }
 
-    public HotelAdapter(Context context, int resource, List<Hotel> items) {
+    public HotelArrayAdapter(Context context, int resource, List<Hotel> items) {
         super(context, resource, items);
         hotels=items;
     }
