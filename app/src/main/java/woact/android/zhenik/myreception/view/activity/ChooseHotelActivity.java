@@ -17,11 +17,11 @@ import woact.android.zhenik.myreception.R;
 import woact.android.zhenik.myreception.datalayer.dao.CacheDao;
 import woact.android.zhenik.myreception.datalayer.entities.Hotel;
 import woact.android.zhenik.myreception.utils.ReceptionAppContext;
-import woact.android.zhenik.myreception.view.adapter.HotelAdapter;
+import woact.android.zhenik.myreception.view.adapter.HotelArrayAdapter;
 
 public class ChooseHotelActivity extends AppCompatActivity {
     private static final String TAG = "CH-activity:> ";
-    private HotelAdapter mHotelAdapter;
+    private HotelArrayAdapter mHotelArrayAdapter;
     private ListView mHotelsList;
     private ProgressWheel mProgressWheel;
 
@@ -42,10 +42,10 @@ public class ChooseHotelActivity extends AppCompatActivity {
     private void initAdapter() {
         mHotelsList = (ListView) findViewById(R.id.choose_hotel_list);
         List<Hotel> hotels = CacheDao.getInstance().getHotelDao().getHotels();
-        mHotelAdapter = new HotelAdapter(this, R.layout.item_list_hotel, hotels);
+        mHotelArrayAdapter = new HotelArrayAdapter(this, R.layout.item_list_hotel, hotels);
         Log.d(TAG, hotels.size() + "");
         if (mHotelsList != null)
-            mHotelsList.setAdapter(mHotelAdapter);
+            mHotelsList.setAdapter(mHotelArrayAdapter);
         initListViewListener();
     }
 
@@ -61,7 +61,7 @@ public class ChooseHotelActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Hotel hotel = ((Hotel) mHotelsList.getItemAtPosition(position));
                 final Intent intent = new Intent(getApplicationContext(), MyReceptionHome.class);
-                intent.putExtra(ReceptionAppContext.HOTEL, hotel);
+                intent.putExtra(ReceptionAppContext.HOTEL_IN_SYSTEM, hotel);
                 mProgressWheel.setVisibility(View.VISIBLE);
 
                 // emulate download database to cache
