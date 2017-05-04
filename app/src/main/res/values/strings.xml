@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyReception</string>
+    <string name="app_name">Personal Reception</string>
     <string name="logo_image">logo image</string>
     <string name="start">CHOOSE \nHOTEL</string>
     <string name="title_activity_my_reception_home">MyReceptionHome</string>
@@ -20,4 +20,8 @@
     <string name="rooms_icon">Rooms icon</string>
     <string name="your_personal_reception">Your personal reception</string>
     <string name="hotel_fasade">Hotel fasade</string>
+    <string name="find_places">FInd places</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="open_map">Open map</string>
+    <!--https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CnRvAAAAwMpdHeWlXl-lH0vp7lez4znKPIWSWvgvZFISdKx45AwJVP1Qp37YOrH7sqHMJ8C-vBDC546decipPHchJhHZL94RcTUfPa1jWzo-rSHaTlbNtjh-N68RkcToUCuY9v2HNpo5mziqkir37WU8FJEqVBIQ4k938TI3e7bf8xq-uwDZcxoUbO_ZJzPxremiQurAYzCTwRhE_V0&sensor=false&key=AIzaSyBIHhoW2xSzuAmUstDMfJKbRuXLnFJSAtg-->
 </resources>
