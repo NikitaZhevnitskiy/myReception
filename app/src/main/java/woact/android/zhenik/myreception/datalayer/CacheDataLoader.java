@@ -101,7 +101,7 @@ public class CacheDataLoader {
         long hotelId2 = createHotel(new Hotel(2,
                                   "Luxury Bergen Hotel",
                                   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-                                  "Some street",
+                                  "Smeltedigelen 2, 0195 Oslo",
                                   321314142,
                                   "post@westerdals.no"));
 
