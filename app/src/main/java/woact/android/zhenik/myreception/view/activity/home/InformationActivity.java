@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -27,17 +28,16 @@ public class InformationActivity extends AppCompatActivity {
     private TextView hotelTelephone;
     private TextView hotelEmail;
     private Hotel currentHotel;
-    private LinearLayout layoutPic;
+    private ImageView layoutPic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information);
-        layoutPic = (LinearLayout)findViewById(R.id.information_activity_pic);
-        layoutPic.setBackground(getResources().getDrawable(R.drawable.info_description1));
+        layoutPic = (ImageView)findViewById(R.id.information_activity_pic);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("INFORMATION");
-
+        new PictureLoader().execute(layoutPic);
     }
 
     @Override
@@ -70,35 +70,39 @@ public class InformationActivity extends AppCompatActivity {
         return true;
     }
 
-    class MyTask extends AsyncTask<Drawable, Void, Void> {
+    class PictureLoader extends AsyncTask<ImageView, Void, Bitmap> {
+
+        ImageView imageView = null;
 
         @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-//            tvInfo.setText("Begin");
-        }
-
-        @Override
-        protected Void doInBackground(Drawable... params) {
+        protected Bitmap doInBackground(ImageView... imageViews) {
+            this.imageView = imageViews[0];
             try {
-                TimeUnit.SECONDS.sleep(2);
-//                byte[] decodedString = Base64.decode(getResources().getDrawable(R.drawable.info_description1, ), Base64.NO_WRAP);
-//                InputStream inputStream  = new ByteArrayInputStream(decodedString);
-//                Bitmap bitmap  = BitmapFactory.decodeStream(inputStream);
-//                layoutPic.setBackground(params[0]);
-
+                TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            return null;
+            return download_Image();
         }
 
         @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-//            tvInfo.setText("End");
+        protected void onPostExecute(Bitmap result) {
+            imageView.setImageBitmap(result);
         }
+
+        private Bitmap download_Image() {
+
+            Bitmap bmp = null;
+            try {
+                bmp = BitmapFactory.decodeResource(getResources(), R.drawable.info_description1);
+                if (null != bmp)
+                    return bmp;
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+            return bmp;
+        }
+
     }
-
-
 }

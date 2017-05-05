@@ -9,12 +9,12 @@
     tools:context="woact.android.zhenik.myreception.view.activity.home.InformationActivity">
 
     <!-- A CardView that contains a TextView -->
-    <LinearLayout
+    <ImageView
         android:layout_width="match_parent"
         android:id="@+id/information_activity_pic"
         android:layout_height="230dp"
         android:orientation="horizontal">
-    </LinearLayout>
+    </ImageView>
     <!--android:background="@drawable/info_description1"-->
 
     <LinearLayout
