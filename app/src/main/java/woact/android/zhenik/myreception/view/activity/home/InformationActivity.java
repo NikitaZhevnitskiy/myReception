@@ -71,9 +71,7 @@ public class InformationActivity extends AppCompatActivity {
     }
 
     class PictureLoader extends AsyncTask<ImageView, Void, Bitmap> {
-
         ImageView imageView = null;
-
         @Override
         protected Bitmap doInBackground(ImageView... imageViews) {
             this.imageView = imageViews[0];
@@ -82,25 +80,19 @@ public class InformationActivity extends AppCompatActivity {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            return download_Image();
+            return uploadImage();
         }
-
         @Override
-        protected void onPostExecute(Bitmap result) {
-            imageView.setImageBitmap(result);
-        }
-
-        private Bitmap download_Image() {
-
+        protected void onPostExecute(Bitmap result) {imageView.setImageBitmap(result);}
+        private Bitmap uploadImage() {
             Bitmap bmp = null;
             try {
                 bmp = BitmapFactory.decodeResource(getResources(), R.drawable.info_description1);
                 if (null != bmp)
                     return bmp;
             }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
+            catch (Exception e) {e.printStackTrace();}
+
             return bmp;
         }
 
