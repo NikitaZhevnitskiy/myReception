@@ -23,10 +23,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mStartBtn=(Button)findViewById(R.id.main_activity_start_btn);
-        initBtnListener();
-
         getSupportActionBar().setTitle("");
+        getSupportActionBar().hide();
 //        getSupportActionBar().hide();
 
         // db manager init
@@ -34,18 +32,23 @@ public class MainActivity extends AppCompatActivity {
         cdf = new CacheDataLoader();
         databaseSetup();
 
-    }
+        Thread welcomeThread = new Thread() {
 
-    private void initBtnListener(){
-        mStartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                if (v.getId()==R.id.main_activity_start_btn){
-                    Intent intent = new Intent(getApplicationContext(), ChooseHotelActivity.class);
-                    startActivity(intent);
+            public void run() {
+                try {
+                    super.run();
+                    sleep(2000);  //Delay of 10 seconds
+                } catch (Exception e) {
+
+                } finally {
+                    Intent i = new Intent(getApplicationContext(), ChooseHotelActivity.class);
+                    startActivity(i);
+                    finish();
                 }
             }
-        });
+        };
+        welcomeThread.start();
     }
 
     /**
