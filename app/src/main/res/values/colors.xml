@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#2980b9</color>
-    <color name="colorPrimaryDark">#39A6F0</color>
+    <color name="colorPrimary">#009688</color>
+    <color name="colorPrimaryDark">#666666</color>
     <color name="colorAccent">#ECF0F1</color>
 
 
@@ -16,6 +16,8 @@
     <!--<color name="colorPrimary">#8FC4D9</color>-->
     <!--<color name="colorPrimaryDark">#024059</color>-->
     <!--<color name="colorAccent">#12A67C</color>-->
+
+    <!--THEME main before-->
 
 
 </resources>
