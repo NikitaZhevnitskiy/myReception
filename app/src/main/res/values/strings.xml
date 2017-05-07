@@ -23,5 +23,6 @@
     <string name="find_places">FInd places</string>
     <string name="title_activity_maps">Map</string>
     <string name="open_map">Open map</string>
+    <string name="search">search</string>
     <!--https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CnRvAAAAwMpdHeWlXl-lH0vp7lez4znKPIWSWvgvZFISdKx45AwJVP1Qp37YOrH7sqHMJ8C-vBDC546decipPHchJhHZL94RcTUfPa1jWzo-rSHaTlbNtjh-N68RkcToUCuY9v2HNpo5mziqkir37WU8FJEqVBIQ4k938TI3e7bf8xq-uwDZcxoUbO_ZJzPxremiQurAYzCTwRhE_V0&sensor=false&key=AIzaSyBIHhoW2xSzuAmUstDMfJKbRuXLnFJSAtg-->
 </resources>

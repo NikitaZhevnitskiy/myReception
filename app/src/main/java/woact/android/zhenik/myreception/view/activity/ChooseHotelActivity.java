@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.pnikosis.materialishprogress.ProgressWheel;
@@ -24,13 +27,24 @@ public class ChooseHotelActivity extends AppCompatActivity {
     private HotelArrayAdapter mHotelArrayAdapter;
     private ListView mHotelsList;
     private ProgressWheel mProgressWheel;
+    private EditText mTxtSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_hotel);
         mProgressWheel = (ProgressWheel) findViewById(R.id.choose_hotel_progress_wheel);
+        mTxtSearch = (EditText)findViewById(R.id.choose_hotel_search);
+
+//        initAdapter();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         initAdapter();
+        mHotelArrayAdapter.getFilter().filter(mTxtSearch.getText());
+        mTxtSearch.addTextChangedListener(new TextChangeListener());
     }
 
     @Override
@@ -47,6 +61,7 @@ public class ChooseHotelActivity extends AppCompatActivity {
         if (mHotelsList != null)
             mHotelsList.setAdapter(mHotelArrayAdapter);
         initListViewListener();
+        mHotelsList.setTextFilterEnabled(true);
     }
 
     private void initWheel() {
@@ -77,4 +92,20 @@ public class ChooseHotelActivity extends AppCompatActivity {
     }
 
 
+    class TextChangeListener implements TextWatcher {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            mHotelArrayAdapter.getFilter().filter(s.toString());
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    }
 }
