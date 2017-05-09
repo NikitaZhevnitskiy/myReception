@@ -14,18 +14,20 @@ public class CacheDao {
     private RoomTypeDao roomTypeDao;
     private RoomDao roomDao;
     private RestaurantDao restaurantDao;
+    private UserDao userDao;
 
     private static CacheDao instance;
 
     private CacheDao(){
-        this(new HotelDao(), new RoomTypeDao(), new RoomDao(), new RestaurantDao());
+        this(new HotelDao(), new RoomTypeDao(), new RoomDao(), new RestaurantDao(), new UserDao());
     }
 
-    private CacheDao(HotelDao hotelDao, RoomTypeDao roomTypeDao, RoomDao roomDao, RestaurantDao restaurantDao) {
+    private CacheDao(HotelDao hotelDao, RoomTypeDao roomTypeDao, RoomDao roomDao, RestaurantDao restaurantDao, UserDao userDao) {
         this.hotelDao=hotelDao;
         this.roomTypeDao=roomTypeDao;
         this.roomDao=roomDao;
         this.restaurantDao=restaurantDao;
+        this.userDao = userDao;
     }
 
     public static synchronized CacheDao getInstance() {
@@ -47,4 +49,6 @@ public class CacheDao {
     public RestaurantDao getRestaurantDao() {
         return restaurantDao;
     }
+
+    public UserDao getUserDao() {return userDao;}
 }

@@ -7,6 +7,7 @@ import woact.android.zhenik.myreception.datalayer.dao.HotelDao;
 import woact.android.zhenik.myreception.datalayer.entities.Hotel;
 import woact.android.zhenik.myreception.datalayer.entities.Restaurant;
 import woact.android.zhenik.myreception.datalayer.entities.RoomType;
+import woact.android.zhenik.myreception.datalayer.entities.User;
 
 import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.*;
 
@@ -85,6 +86,27 @@ public class CacheDataLoader {
         return hotelRestaurantId;
     }
 
+    public long createUser(User user) {
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAME, user.getName());
+        values.put(KEY_EMAIL, user.getEmail());
+        long userId = db.insert(TABLE_USERS, null, values);
+        DatabaseManager.getInstance().closeDatabase();
+        return userId;
+    }
+
+    public long createUserHotelRoom(long userId, long hotelRoomId, String code) {
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_USER_ID, userId);
+        values.put(KEY_HOTEL_ROOM_ID, hotelRoomId);
+        values.put(KEY_CODE, code);
+        long userHotelRoomId = db.insert(TABLE_USER_HOTEL_ROOM, null, values);
+        DatabaseManager.getInstance().closeDatabase();
+        return userHotelRoomId;
+    }
+
 
 
     /**
@@ -129,6 +151,10 @@ public class CacheDataLoader {
         long hotel_restaurant1 = createHotelRestaurant(hotelId1, restaurantId1);
         long hotel_restaurant2 = createHotelRestaurant(hotelId1, restaurantId2);
         long hotel_restaurant3 = createHotelRestaurant(hotelId2, restaurantId2);
+
+        // create user & register in hotelRoom
+        long userId1 = createUser(new User("Nikita Zhevnitskiy", "zhenik15@student.westerdals.no"));
+        long userHotelRoomId = createUserHotelRoom(userId1, hotel_room1, "foo");
 
     }
 

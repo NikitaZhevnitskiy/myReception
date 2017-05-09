@@ -51,6 +51,7 @@ public class ChooseHotelActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         initWheel();
+        ReceptionAppContext.setUserId(null);
         super.onResume();
     }
 

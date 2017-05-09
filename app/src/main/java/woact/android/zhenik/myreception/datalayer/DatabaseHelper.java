@@ -20,6 +20,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_HOTEL_ROOM = "hotel_room";
     public static final String TABLE_RESTAURANTS = "restaurants";
     public static final String TABLE_HOTEL_RESTAURANT = "hotel_restaurants";
+    public static final String TABLE_USERS = "users";
+    public static final String TABLE_USER_HOTEL_ROOM = "user_hotel_room";
     // Common column names
     public static final String KEY_ID = "id";
     public static final String KEY_DESCRIPTION = "description";
@@ -39,6 +41,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // id, name, description already exists
     // HOTEL_RESTAURANT Table - columns
     public static final String KEY_RESTAURANT_ID="restaurant_id";
+    // USERS Table - columns
+    // id, name, email - have already exists
+    // USER_HOTEL_ROOM Table - columns
+    // id - has already exists
+    public static final String KEY_USER_ID = "user_id";
+    public static final String KEY_HOTEL_ROOM_ID = "hotel_room_id";
+    public static final String KEY_CODE = "code";
+
 
 
 
@@ -91,6 +101,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + "FOREIGN KEY ("+ KEY_HOTEL_ID+") REFERENCES "+TABLE_HOTELS+"("+KEY_ID+"),"
             + "FOREIGN KEY ("+ KEY_RESTAURANT_ID+") REFERENCES "+TABLE_RESTAURANTS+"("+KEY_ID+"))";
 
+    // users table create statement
+    private static final String CREATE_TABLE_USERS = "CREATE TABLE "
+            + TABLE_USERS + " ("
+            + KEY_ID + " INTEGER PRIMARY KEY, "
+            + KEY_NAME + " TEXT NOT NULL UNIQUE, "
+            + KEY_EMAIL + " TEXT)";
+
+    // user_hotel_room table create statement
+    private static final String CREATE_TABLE_USER_HOTEL_ROOM = "CREATE TABLE "
+            + TABLE_USER_HOTEL_ROOM + " ("
+            + KEY_ID + " INTEGER PRIMARY KEY, "
+            + KEY_USER_ID + " INTEGER NOT NULL, "
+            + KEY_HOTEL_ROOM_ID + " INTEGER NOT NULL, "
+            + KEY_CODE + " TEXT NOT NULL UNIQUE, "
+            + "FOREIGN KEY (" + KEY_USER_ID + ") REFERENCES " + TABLE_USERS + "(" + KEY_ID + "),"
+            + "FOREIGN KEY (" + KEY_HOTEL_ROOM_ID + ") REFERENCES " + TABLE_HOTEL_ROOM + "(" + KEY_ID + "))";
+
 
     /**
      * Synchronized singleton
@@ -119,11 +146,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.d(TAG, " restaurants was created");
         db.execSQL(CREATE_TABLE_HOTEL_RESTAURANT);
         Log.d(TAG, " hotel_restaurant was created");
-
+        db.execSQL(CREATE_TABLE_USERS);
+        Log.d(TAG, " users was created");
+        db.execSQL(CREATE_TABLE_USER_HOTEL_ROOM);
+        Log.d(TAG, " user_hotel_room was created");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER_HOTEL_ROOM);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_HOTEL_ROOM);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ROOMS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_HOTEL_RESTAURANT);

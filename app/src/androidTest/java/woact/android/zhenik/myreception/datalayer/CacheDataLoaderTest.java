@@ -17,6 +17,7 @@ import java.util.Arrays;
 import woact.android.zhenik.myreception.datalayer.entities.Hotel;
 import woact.android.zhenik.myreception.datalayer.entities.Restaurant;
 import woact.android.zhenik.myreception.datalayer.entities.RoomType;
+import woact.android.zhenik.myreception.datalayer.entities.User;
 
 import static org.junit.Assert.*;
 import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.KEY_ADDRESS;
@@ -33,6 +34,8 @@ import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.TABLE_HO
 import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.TABLE_RESTAURANTS;
 import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.TABLE_ROOMS;
 import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.TABLE_ROOM_TYPES;
+import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.TABLE_USERS;
+import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.TABLE_USER_HOTEL_ROOM;
 
 @RunWith(AndroidJUnit4.class)
 public class CacheDataLoaderTest {
@@ -54,6 +57,8 @@ public class CacheDataLoaderTest {
 
     @After
     public void tearDown(){
+        clearTable(TABLE_USER_HOTEL_ROOM);
+        clearTable(TABLE_USERS);
         clearTable(TABLE_HOTEL_ROOM);
         clearTable(TABLE_ROOMS);
         clearTable(TABLE_ROOM_TYPES);
@@ -141,6 +146,22 @@ public class CacheDataLoaderTest {
         assertEquals(KEY_ID, cursor.getColumnName(0));
         assertEquals(KEY_NAME, cursor.getColumnName(1));
         assertEquals(KEY_DESCRIPTION, cursor.getColumnName(2));
+
+    }
+
+    @Test
+    public void checkDatabaseColumns_UsersTable() {
+        // Arrange
+        String selectQuery = "SELECT  * FROM " + TABLE_USERS;
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // log
+        Log.d(TAG, "TABLE NAME: " + Arrays.asList(cursor.getColumnNames()).toString());
+        // Assert
+        assertEquals(3, cursor.getColumnCount());
+        assertEquals(KEY_ID, cursor.getColumnName(0));
+        assertEquals(KEY_NAME, cursor.getColumnName(1));
+        assertEquals(KEY_EMAIL, cursor.getColumnName(2));
 
     }
 
@@ -284,7 +305,48 @@ public class CacheDataLoaderTest {
         assertTrue(hotelRestaurantID==-1);
     }
 
+    @Test
+    public void createUser_ValidData() {
+        // Arrange
+        User user = new User("Joakim", "ololo@gmail.com");
 
+        // Act
+        long userId = cdf.createUser(user);
 
+        // Assert
+        assertTrue(userId != -1);
+        assertEquals(1, rawCount(TABLE_USERS));
+    }
+
+    @Test
+    public void createUser_NOTValidData() {
+        // Arrange
+        User user = new User();
+
+        // Act
+        long userId = cdf.createUser(user);
+
+        // Assert
+        assertTrue(userId == -1);
+        assertEquals(0, rawCount(TABLE_USERS));
+    }
+
+    @Test
+    public void createUserHotelRoom_ValidData() {
+        // Arrange
+        User user = new User("Joakim", "ololo@gmail.com");
+        long userId = cdf.createUser(user);
+        long hotelId = cdf.createHotel(hotel1);
+        long roomTypeId = cdf.createRoomType(new RoomType("Standard", "Huge room 24 sqrt"));
+        long roomId = cdf.createRoom(roomTypeId);
+        long hotelRoomId = cdf.createHotelRoom(hotelId, roomId);
+        Log.d("MYTAG1: ", userId + "|" + hotelRoomId + "|");
+        // Act
+        long userHotelRoomId = cdf.createUserHotelRoom(userId, hotelRoomId, "code");
+
+        // Assert
+        assertTrue(userHotelRoomId != -1);
+        assertEquals(1, rawCount(TABLE_USER_HOTEL_ROOM));
+    }
 
 }
