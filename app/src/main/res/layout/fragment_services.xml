@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/colorPrimaryDark"
+              android:gravity="center"
+              android:orientation="vertical"
+              tools:context=".view.fragment.HotelFragment">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_gravity="top|center_horizontal"
+        android:contentDescription="@string/logo_image"
+        android:tint="@color/cardview_light_background"
+        app:srcCompat="@drawable/logo_main"/>
+
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:id="@+id/services_fragment_screen_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="UselessParent"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            tools:ignore="UselessParent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    style="@style/iconScreenNavigation"
+                    android:contentDescription="@string/information_icon"
+                    app:srcCompat="@drawable/ic_information"/>
+
+                <TextView
+                    android:id="@+id/textView1"
+                    style="@style/txtScreenNavigation"
+                    android:text="@string/information"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    style="@style/iconScreenNavigation"
+                    android:contentDescription="@string/contact_icon"
+                    app:srcCompat="@drawable/ic_error_outline_white_48dp"/>
+
+                <TextView
+                    android:id="@+id/textView2"
+                    style="@style/txtScreenNavigation"
+                    android:text="@string/contacts"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    style="@style/iconScreenNavigation"
+                    android:contentDescription="@string/rooms_icon"
+                    app:srcCompat="@drawable/ic_bed_3"/>
+
+                <TextView
+                    android:id="@+id/textView3"
+                    style="@style/txtScreenNavigation"
+                    android:text="@string/rooms"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    style="@style/iconScreenNavigation"
+                    android:contentDescription="@string/restaurants_bars_icon"
+                    app:srcCompat="@drawable/ic_restaurant"/>
+
+                <TextView
+                    android:id="@+id/textView4"
+                    style="@style/txtScreenNavigation"
+                    android:text="@string/bars_n_restaurants"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
