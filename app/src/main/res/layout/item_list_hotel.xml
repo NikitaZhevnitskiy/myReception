@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="horizontal"
-    android:id="@+id/linearLayout1"
-    android:background="@color/colorPrimaryDark">
+              android:id="@+id/linearLayout1"
+              android:background="@color/colorPrimaryDark">
 
     <TextView
         android:id="@+id/item_hotel_name"
@@ -15,10 +16,10 @@
         android:layout_weight="1"
         android:gravity="center_vertical"
         android:padding="15dp"
-        android:text="GayHotel"
         android:textColor="@android:color/white"
         android:textSize="20sp"
-        android:textStyle="bold">
+        android:textStyle="bold"
+        tools:text="SomeHotel">
     </TextView>
 
     <ImageView

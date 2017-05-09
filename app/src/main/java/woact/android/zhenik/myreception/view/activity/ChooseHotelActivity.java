@@ -35,6 +35,7 @@ public class ChooseHotelActivity extends AppCompatActivity {
         setContentView(R.layout.activity_choose_hotel);
         mProgressWheel = (ProgressWheel) findViewById(R.id.choose_hotel_progress_wheel);
         mTxtSearch = (EditText)findViewById(R.id.choose_hotel_search);
+        getSupportActionBar().setTitle("Choose where you stay");
 
 //        initAdapter();
     }
