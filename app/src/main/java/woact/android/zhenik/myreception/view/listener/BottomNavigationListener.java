@@ -7,7 +7,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
 
 import woact.android.zhenik.myreception.R;
+import woact.android.zhenik.myreception.utils.ReceptionAppContext;
 import woact.android.zhenik.myreception.view.fragment.HotelFragment;
+import woact.android.zhenik.myreception.view.fragment.LoginFragment;
+import woact.android.zhenik.myreception.view.fragment.ServicesFragment;
 
 public class BottomNavigationListener implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -21,8 +24,7 @@ public class BottomNavigationListener implements BottomNavigationView.OnNavigati
                 callHotelFragment();
                 return true;
             case R.id.navigation_services:
-                return true;
-            case R.id.navigation_places:
+                callServicesFragment();
                 return true;
             }
         return false;
@@ -33,6 +35,19 @@ public class BottomNavigationListener implements BottomNavigationView.OnNavigati
         if (fm.findFragmentByTag(HotelFragment.TAG)==null)
             transaction.replace(R.id.content, new HotelFragment(), HotelFragment.TAG);
         transaction.commit();
+    }
+
+    private void callServicesFragment() {
+        FragmentTransaction transaction = fm.beginTransaction();
+        if (ReceptionAppContext.getUserId() == null) {
+            if (fm.findFragmentByTag(LoginFragment.TAG) == null)
+                transaction.replace(R.id.content, new LoginFragment(), LoginFragment.TAG);
+            transaction.commit();
+        } else {
+            if (fm.findFragmentByTag(ServicesFragment.TAG) == null)
+                transaction.replace(R.id.content, new ServicesFragment(), ServicesFragment.TAG);
+            transaction.commit();
+        }
     }
 
 

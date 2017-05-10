@@ -5,29 +5,52 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="@color/colorPrimaryDark"
-              android:gravity="center"
               android:orientation="vertical"
               tools:context=".view.fragment.HotelFragment">
 
-    <ImageView
-        android:id="@+id/imageView"
+
+    <LinearLayout
+        android:id="@+id/services_fragment_user_info"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_gravity="top|center_horizontal"
-        android:contentDescription="@string/logo_image"
-        android:tint="@color/cardview_light_background"
-        app:srcCompat="@drawable/logo_main"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/services_fragment_hotel_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            tools:text="HotelName"
+            android:textColor="@android:color/white"/>
 
-    <!-- TODO: Update blank fragment layout -->
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/unknown_male"/>
+
+        <TextView
+            android:id="@+id/services_fragment_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            tools:text="Nikita Zhevnitskiy"
+            android:textColor="@android:color/white"/>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/services_fragment_screen_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginTop="20dp"
         android:orientation="vertical"
-        tools:ignore="UselessParent"
-        >
+        tools:ignore="UselessParent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,13 +70,13 @@
                 <ImageView
                     android:id="@+id/imageView1"
                     style="@style/iconScreenNavigation"
-                    android:contentDescription="@string/information_icon"
-                    app:srcCompat="@drawable/ic_information"/>
+                    android:contentDescription="@string/room_service"
+                    app:srcCompat="@drawable/ic_bell"/>
 
                 <TextView
                     android:id="@+id/textView1"
                     style="@style/txtScreenNavigation"
-                    android:text="@string/information"/>
+                    android:text="@string/room_service"/>
             </LinearLayout>
 
             <LinearLayout
@@ -66,13 +89,13 @@
                 <ImageView
                     android:id="@+id/imageView2"
                     style="@style/iconScreenNavigation"
-                    android:contentDescription="@string/contact_icon"
-                    app:srcCompat="@drawable/ic_error_outline_white_48dp"/>
+                    android:contentDescription="@string/taxi"
+                    app:srcCompat="@drawable/ic_taxi_cab"/>
 
                 <TextView
                     android:id="@+id/textView2"
                     style="@style/txtScreenNavigation"
-                    android:text="@string/contacts"/>
+                    android:text="@string/taxi"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -94,13 +117,13 @@
                 <ImageView
                     android:id="@+id/imageView3"
                     style="@style/iconScreenNavigation"
-                    android:contentDescription="@string/rooms_icon"
-                    app:srcCompat="@drawable/ic_bed_3"/>
+                    android:contentDescription="@string/food"
+                    app:srcCompat="@drawable/ic_meal"/>
 
                 <TextView
                     android:id="@+id/textView3"
                     style="@style/txtScreenNavigation"
-                    android:text="@string/rooms"/>
+                    android:text="@string/food"/>
             </LinearLayout>
 
             <LinearLayout
@@ -113,15 +136,16 @@
                 <ImageView
                     android:id="@+id/imageView4"
                     style="@style/iconScreenNavigation"
-                    android:contentDescription="@string/restaurants_bars_icon"
-                    app:srcCompat="@drawable/ic_restaurant"/>
+                    android:contentDescription="@string/housekeeping"
+                    app:srcCompat="@drawable/ic_vacuum_cleaner_house"/>
 
                 <TextView
                     android:id="@+id/textView4"
                     style="@style/txtScreenNavigation"
-                    android:text="@string/bars_n_restaurants"/>
+                    android:text="@string/housekeeping"/>
             </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>
+
 </LinearLayout>
