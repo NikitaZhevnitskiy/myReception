@@ -28,6 +28,7 @@ public class MyReceptionHome extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_reception_home);
+        getSupportActionBar().setTitle("Reception");
         initHotel();
         initBottomNavigation();
     }
@@ -74,5 +75,7 @@ public class MyReceptionHome extends AppCompatActivity {
     }
 
     private void clickHome(){((View)findViewById(R.id.navigation_home)).performClick();}
+
+    public void clickServices() {((View) findViewById(R.id.navigation_services)).performClick();}
 
 }
