@@ -8,16 +8,16 @@
               android:orientation="vertical"
               tools:context=".view.fragment.HotelFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="355dp"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="150dp"
         android:layout_gravity="top|center_horizontal"
         android:contentDescription="@string/logo_image"
-        app:srcCompat="@drawable/logo"
-        android:tint="@color/colorPrimaryBackground"/>
+        android:tint="@color/cardview_light_background"
+        app:srcCompat="@drawable/logo_main"/>
 
     <LinearLayout
         android:id="@+id/hotel_fragment_screen_navigation"
