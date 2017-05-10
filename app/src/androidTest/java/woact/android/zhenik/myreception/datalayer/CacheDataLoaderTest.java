@@ -349,4 +349,26 @@ public class CacheDataLoaderTest {
         assertEquals(1, rawCount(TABLE_USER_HOTEL_ROOM));
     }
 
+    @Test
+    public void testLogin_ValidData() {
+        // Arrange
+        User user = new User("Joakim", "ololo@gmail.com");
+        long userId = cdf.createUser(user);
+        long hotelId = cdf.createHotel(hotel1);
+        long roomTypeId = cdf.createRoomType(new RoomType("Standard", "Huge room 24 sqrt"));
+        long roomId = cdf.createRoom(roomTypeId);
+        long hotelRoomId = cdf.createHotelRoom(hotelId, roomId);
+        long userHotelRoomId = cdf.createUserHotelRoom(userId, hotelRoomId, "code");
+
+        // Act
+        User user1 = cdf.login(hotelId, "code");
+
+        // Assert
+        assertNotNull(user1);
+        assertEquals(user.getName(), user1.getName());
+        assertEquals(user.getEmail(), user1.getEmail());
+    }
+
+
+
 }

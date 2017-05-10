@@ -1,6 +1,7 @@
 package woact.android.zhenik.myreception.datalayer;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import woact.android.zhenik.myreception.datalayer.dao.HotelDao;
@@ -107,6 +108,57 @@ public class CacheDataLoader {
         return userHotelRoomId;
     }
 
+    // 2 request in one transaction
+    public User login(long hotelId, String code) {
+        User user = null;
+        String selectQuery = String.format(
+                "SELECT %s.%s FROM %s "
+                        + "INNER JOIN %s ON %s.%s=%s.%s "
+                        + "WHERE %s.%s=? AND %s.%s=?",
+                TABLE_USER_HOTEL_ROOM, KEY_USER_ID, TABLE_USER_HOTEL_ROOM, TABLE_HOTEL_ROOM,
+                TABLE_HOTEL_ROOM, KEY_ID, TABLE_USER_HOTEL_ROOM, KEY_HOTEL_ROOM_ID, TABLE_HOTEL_ROOM,
+                KEY_HOTEL_ID, TABLE_USER_HOTEL_ROOM, KEY_CODE);
+        try {
+            // 1 request
+            SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+            Cursor cursor = db.rawQuery(selectQuery, new String[]{
+                    String.valueOf(hotelId),
+                    String.valueOf(code)}
+            );
+
+            if (cursor != null && cursor.getCount() > 0)
+                cursor.moveToFirst();
+            else
+                return null;
+            long userId = cursor.getLong(0);
+
+            if (userId == -1) {
+                return null;
+            }
+
+            // 2 request
+            Cursor cursor1 = db.query(
+                    TABLE_USERS,
+                    new String[]{KEY_ID, KEY_NAME, KEY_EMAIL},
+                    KEY_ID + "=?",
+                    new String[]{String.valueOf(userId)},
+                    null, null, null, null);
+
+            if (cursor1 != null && cursor1.getCount() > 0)
+                cursor1.moveToFirst();
+            else
+                return null;
+
+            user = new User(cursor1.getLong(0),
+                            cursor1.getString(1),
+                            cursor1.getString(2));
+
+        } finally {
+            DatabaseManager.getInstance().closeDatabase();
+        }
+        return user;
+    }
+
 
 
     /**
@@ -154,7 +206,7 @@ public class CacheDataLoader {
 
         // create user & register in hotelRoom
         long userId1 = createUser(new User("Nikita Zhevnitskiy", "zhenik15@student.westerdals.no"));
-        long userHotelRoomId = createUserHotelRoom(userId1, hotel_room1, "foo");
+        long userHotelRoomId = createUserHotelRoom(userId1, hotel_room1, "code");
 
     }
 

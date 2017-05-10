@@ -4,16 +4,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import woact.android.zhenik.myreception.datalayer.DatabaseManager;
-import woact.android.zhenik.myreception.datalayer.entities.Hotel;
 import woact.android.zhenik.myreception.datalayer.entities.User;
 
-import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.KEY_ADDRESS;
-import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.KEY_DESCRIPTION;
 import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.KEY_EMAIL;
 import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.KEY_ID;
 import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.KEY_NAME;
-import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.KEY_PHONE;
-import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.TABLE_HOTELS;
 import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.TABLE_USERS;
 
 
