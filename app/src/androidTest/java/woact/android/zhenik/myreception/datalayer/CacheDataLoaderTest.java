@@ -50,6 +50,7 @@ public class CacheDataLoaderTest {
         Context context = InstrumentationRegistry.getTargetContext();
         DatabaseHelper mDatabaseHelper = DatabaseHelper.getHelper(context);
         DatabaseManager.initializeInstance(mDatabaseHelper);
+        clearAllTables();
 //        DatabaseManager mDatabaseManager=DatabaseManager.getInstance();
         cdf = new CacheDataLoader();
         hotel1 = new Hotel(1,"foo","bar","address", 41, "foo@bar.no");
@@ -57,6 +58,11 @@ public class CacheDataLoaderTest {
 
     @After
     public void tearDown(){
+        clearAllTables();
+        hotel1 = null;
+    }
+
+    private void clearAllTables() {
         clearTable(TABLE_USER_HOTEL_ROOM);
         clearTable(TABLE_USERS);
         clearTable(TABLE_HOTEL_ROOM);
@@ -65,9 +71,7 @@ public class CacheDataLoaderTest {
         clearTable(TABLE_HOTEL_RESTAURANT);
         clearTable(TABLE_RESTAURANTS);
         clearTable(TABLE_HOTELS);
-        hotel1= null;
     }
-
 
     private void clearTable(String tableName){
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
