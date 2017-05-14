@@ -10,9 +10,10 @@
 
     <!-- A CardView that contains a TextView -->
     <ImageView
-        android:layout_width="match_parent"
         android:id="@+id/information_activity_pic"
+        android:layout_width="match_parent"
         android:layout_height="230dp"
+        android:contentDescription="@string/hotel_image"
         android:orientation="horizontal">
     </ImageView>
     <!--android:background="@drawable/info_description1"-->
