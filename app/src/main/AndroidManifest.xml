@@ -35,7 +35,8 @@
         <activity
             android:name=".view.activity.home.InformationActivity"
             android:screenOrientation="portrait"
-            android:label="@string/information">
+            android:label="@string/information"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
         <activity
             android:name=".view.activity.home.RoomTypesActivity"

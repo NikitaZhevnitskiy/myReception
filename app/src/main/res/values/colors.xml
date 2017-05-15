@@ -23,5 +23,9 @@
 
     <!--THEME main before-->
 
+    <color name="informationPrimary">#673AAA</color>
+    <color name="informationPrimaryDark">#63329B</color>
 
+    <color name="mapPrimary">#F34E4E</color>
+    <color name="mapPrimaryDark">#C0394F</color>
 </resources>
