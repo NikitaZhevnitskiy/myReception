@@ -1,19 +1,47 @@
 package woact.android.zhenik.myreception.view.activity.home;
 
+import android.animation.ValueAnimator;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.AsyncTask;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.Window;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.Interpolator;
+import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.polyak.iconswitch.IconSwitch;
+
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import woact.android.zhenik.myreception.R;
@@ -21,7 +49,12 @@ import woact.android.zhenik.myreception.datalayer.dao.CacheDao;
 import woact.android.zhenik.myreception.datalayer.entities.Hotel;
 import woact.android.zhenik.myreception.utils.ReceptionAppContext;
 
-public class InformationActivity extends AppCompatActivity {
+import static woact.android.zhenik.myreception.utils.ReceptionAppContext.hotel;
+
+public class InformationActivity extends AppCompatActivity implements OnMapReadyCallback,
+        IconSwitch.CheckedChangeListener, ValueAnimator.AnimatorUpdateListener
+//        , View.OnClickListener
+{
 
     private TextView hotelName;
     private TextView hotelDescription;
@@ -29,15 +62,58 @@ public class InformationActivity extends AppCompatActivity {
     private TextView hotelEmail;
     private Hotel currentHotel;
     private ImageView layoutPic;
+    private GoogleMap map;
+
+    private static final int DURATION_COLOR_CHANGE_MS = 400;
+
+    private int[] toolbarColors;
+    private int[] statusBarColors;
+    private ValueAnimator statusBarAnimator;
+    private Interpolator contentInInterpolator;
+    private Interpolator contentOutInterpolator;
+    private Point revealCenter;
+
+    private Window window;
+    //    private View toolbar;
+    private Toolbar toolbar;
+    private View content;
+    private IconSwitch iconSwitch;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information);
         layoutPic = (ImageView)findViewById(R.id.information_activity_pic);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setTitle("INFORMATION");
+
+        window = getWindow();
+        initColors();
+        initAnimationRelatedFields();
+        content = findViewById(R.id.content);
+        initToolbar();
+        iconSwitch = (IconSwitch) findViewById(R.id.icon_switch);
+        iconSwitch.setCheckedChangeListener(this);
+        updateColors(false);
+
+        FragmentManager fm = getSupportFragmentManager();
+        SupportMapFragment fragment = (SupportMapFragment) fm.findFragmentById(R.id.map_container);
+        if (fragment == null) {
+            fragment = new SupportMapFragment();
+            fm.beginTransaction().replace(R.id.map_container, fragment).commit();
+        }
+        fragment.getMapAsync(this);
+
         new PictureLoader().execute(layoutPic);
+    }
+
+    private void initToolbar() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(color(R.color.colorAccent));
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        final Drawable upArrow = ContextCompat.getDrawable(this, R.drawable.abc_ic_ab_back_material);
+        upArrow.setColorFilter(color(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
+        getSupportActionBar().setHomeAsUpIndicator(upArrow);
     }
 
     @Override
@@ -62,6 +138,172 @@ public class InformationActivity extends AppCompatActivity {
             hotelEmail.setText(currentHotel.getEmail());
         }
     }
+
+    private void updateColors(boolean animated) {
+        int colorIndex = iconSwitch.getChecked().ordinal();
+        toolbar.setBackgroundColor(toolbarColors[colorIndex]);
+        if (animated) {
+            switch (iconSwitch.getChecked()) {
+                case LEFT:
+                    statusBarAnimator.reverse();
+                    break;
+                case RIGHT:
+                    statusBarAnimator.start();
+                    break;
+            }
+            revealToolbar();
+        } else {
+            window.setStatusBarColor(statusBarColors[colorIndex]);
+        }
+    }
+
+    private void revealToolbar() {
+        iconSwitch.getThumbCenter(revealCenter);
+        moveFromSwitchToToolbarSpace(revealCenter);
+        ViewAnimationUtils.createCircularReveal(toolbar,
+                                                revealCenter.x, revealCenter.y,
+                                                iconSwitch.getHeight(), toolbar.getWidth())
+                .setDuration(DURATION_COLOR_CHANGE_MS)
+                .start();
+    }
+
+    @Override
+    public void onAnimationUpdate(ValueAnimator animator) {
+        if (animator == statusBarAnimator) {
+            int color = (Integer) animator.getAnimatedValue();
+            window.setStatusBarColor(color);
+        }
+    }
+
+    private void changeContentVisibility() {
+        int targetTranslation = 0;
+        Interpolator interpolator = null;
+        switch (iconSwitch.getChecked()) {
+            case LEFT:
+                targetTranslation = 0;
+                interpolator = contentInInterpolator;
+                break;
+            case RIGHT:
+                targetTranslation = content.getHeight();
+                interpolator = contentOutInterpolator;
+                break;
+        }
+        content.animate().cancel();
+        content.animate()
+                .translationY(targetTranslation)
+                .setInterpolator(interpolator)
+                .setDuration(DURATION_COLOR_CHANGE_MS)
+                .start();
+    }
+
+    @Override
+    public void onCheckChanged(IconSwitch.Checked current) {
+        updateColors(true);
+        changeContentVisibility();
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        map = googleMap;
+//        googleMap.addMarker(new MarkerOptions()
+//                              .position(new LatLng(0, 0))
+//                              .title("Marker"));
+
+        Geocoder geocoder = new Geocoder(getApplicationContext());
+        List<Address> addresses = new ArrayList<>();
+        try {
+//            addresses = geocoder.getFromLocationName("Chr. Krohgs gate 32, 0186 Oslo", 1);
+            addresses = geocoder.getFromLocationName(hotel.getAddress(), 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (addresses.size() > 0) {
+            double latitude = addresses.get(0).getLatitude();
+            double longitude = addresses.get(0).getLongitude();
+            LatLng place = new LatLng(latitude, longitude);
+            map.addMarker(new MarkerOptions().position(place).title(hotel.getName()));
+//            map.moveCamera(CameraUpdateFactory.newLatLng(westerdals));
+
+
+            CameraPosition googlePlex = CameraPosition.builder()
+                    .target(place)
+                    .zoom(16)
+                    .bearing(0)
+                    .tilt(45)
+                    .build();
+
+            map.moveCamera(CameraUpdateFactory.newCameraPosition(googlePlex));
+        }
+    }
+
+//    @Override
+//    public void onClick(View v) {
+//        switch (v.getId()) {
+//            case R.id.credit_polyak:
+//                open(URL_GITHUB_POLYAK);
+//                break;
+//            case R.id.credit_yarolegovich:
+//                open(URL_GITHUB_YAROLEGOVICH);
+//                break;
+//            case R.id.credit_prokhoda:
+//                open(URL_DRIBBBLE_PROKHODA);
+//                break;
+//        }
+//    }
+//
+//    private void open(Uri url) {
+//        Intent intent = new Intent(Intent.ACTION_VIEW);
+//        intent.setData(url);
+//        if (intent.resolveActivity(getPackageManager()) != null) {
+//            startActivity(intent);
+//        } else {
+//            Snackbar.make(content,
+//                          R.string.msg_no_browser,
+//                          Snackbar.LENGTH_SHORT)
+//                    .show();
+//        }
+//    }
+
+    private void initAnimationRelatedFields() {
+        revealCenter = new Point();
+        statusBarAnimator = createArgbAnimator(
+                statusBarColors[IconSwitch.Checked.LEFT.ordinal()],
+                statusBarColors[IconSwitch.Checked.RIGHT.ordinal()]);
+        contentInInterpolator = new OvershootInterpolator(0.5f);
+        contentOutInterpolator = new DecelerateInterpolator();
+    }
+
+    private void initColors() {
+        toolbarColors = new int[IconSwitch.Checked.values().length];
+        statusBarColors = new int[toolbarColors.length];
+        toolbarColors[IconSwitch.Checked.LEFT.ordinal()] = color(R.color.informationPrimary);
+        statusBarColors[IconSwitch.Checked.LEFT.ordinal()] = color(R.color.informationPrimaryDark);
+        toolbarColors[IconSwitch.Checked.RIGHT.ordinal()] = color(R.color.mapPrimary);
+        statusBarColors[IconSwitch.Checked.RIGHT.ordinal()] = color(R.color.mapPrimaryDark);
+    }
+
+    private ValueAnimator createArgbAnimator(int leftColor, int rightColor) {
+        ValueAnimator animator = ValueAnimator.ofArgb(leftColor, rightColor);
+        animator.setDuration(DURATION_COLOR_CHANGE_MS);
+        animator.addUpdateListener(this);
+        return animator;
+    }
+
+    private void moveFromSwitchToToolbarSpace(Point point) {
+        point.set(point.x + iconSwitch.getLeft(), point.y + iconSwitch.getTop());
+    }
+
+    @ColorInt
+    private int color(@ColorRes int res) {
+        return ContextCompat.getColor(this, res);
+    }
+
+
+
+
+
+
 
     // Back btn in action bar
     @Override
