@@ -36,4 +36,6 @@ dependencies {
     compile 'com.google.android.gms:play-services:8.4.0'
     testCompile 'junit:junit:4.12'
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'com.polyak:icon-switch:1.0.0'
+    compile 'com.yarolegovich:mp:1.0.5'
 }
