@@ -26,13 +26,21 @@
             android:name=".view.activity.MyReceptionHome"
             android:label="@string/title_activity_my_reception_home">
         </activity>
-        <activity android:name=".view.activity.ChooseHotelActivity">
+        <activity
+            android:name=".view.activity.ChooseHotelActivity"
+            android:label="@string/choose_where_you_stay">
         </activity>
-        <activity android:name=".view.activity.home.InformationActivity">
+        <activity
+            android:name=".view.activity.home.InformationActivity"
+            android:label="@string/information">
         </activity>
-        <activity android:name=".view.activity.home.RoomTypesActivity">
+        <activity
+            android:name=".view.activity.home.RoomTypesActivity"
+            android:label="@string/room_types">
         </activity>
-        <activity android:name=".view.activity.home.RestaurantsActivity">
+        <activity
+            android:name=".view.activity.home.RestaurantsActivity"
+            android:label="@string/restaurants">
         </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -46,7 +54,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key"/>
 
-        <activity android:name=".view.activity.FindPlacesActivity">
+        <activity
+            android:name=".view.activity.FindPlacesActivity"
+            android:label="@string/map_bookmarks">
         </activity>
     </application>
 

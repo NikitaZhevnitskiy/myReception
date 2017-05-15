@@ -36,7 +36,7 @@ public class InformationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_information);
         layoutPic = (ImageView)findViewById(R.id.information_activity_pic);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("INFORMATION");
+//        getSupportActionBar().setTitle("INFORMATION");
         new PictureLoader().execute(layoutPic);
     }
 

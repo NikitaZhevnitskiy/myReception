@@ -15,6 +15,7 @@
     <string name="information_icon">Information Icon</string>
     <string name="contact_icon">Contact icon</string>
     <string name="rooms">Rooms</string>
+    <string name="room_types">Room types</string>
     <string name="bars_n_restaurants">Bars /  Restaurants</string>
     <string name="restaurants_bars_icon"><![CDATA[Restaurants & Bars icon]]></string>
     <string name="rooms_icon">Rooms icon</string>
@@ -31,5 +32,8 @@
     <string name="taxi">Taxi</string>
     <string name="food">Food</string>
     <string name="housekeeping">Housekeeping</string>
+    <string name="choose_where_you_stay">Choose where you stay</string>
+    <string name="restaurants">Restaurants</string>
+    <string name="map_bookmarks">Map bookmarks</string>
     <!--https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CnRvAAAAwMpdHeWlXl-lH0vp7lez4znKPIWSWvgvZFISdKx45AwJVP1Qp37YOrH7sqHMJ8C-vBDC546decipPHchJhHZL94RcTUfPa1jWzo-rSHaTlbNtjh-N68RkcToUCuY9v2HNpo5mziqkir37WU8FJEqVBIQ4k938TI3e7bf8xq-uwDZcxoUbO_ZJzPxremiQurAYzCTwRhE_V0&sensor=false&key=AIzaSyBIHhoW2xSzuAmUstDMfJKbRuXLnFJSAtg-->
 </resources>
