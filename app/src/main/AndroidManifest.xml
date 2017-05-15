@@ -11,7 +11,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name="woact.android.zhenik.myreception.utils.ReceptionAppContext">
@@ -24,22 +24,27 @@
         </activity>
         <activity
             android:name=".view.activity.MyReceptionHome"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_my_reception_home">
         </activity>
         <activity
             android:name=".view.activity.ChooseHotelActivity"
+            android:screenOrientation="portrait"
             android:label="@string/choose_where_you_stay">
         </activity>
         <activity
             android:name=".view.activity.home.InformationActivity"
+            android:screenOrientation="portrait"
             android:label="@string/information">
         </activity>
         <activity
             android:name=".view.activity.home.RoomTypesActivity"
+            android:screenOrientation="portrait"
             android:label="@string/room_types">
         </activity>
         <activity
             android:name=".view.activity.home.RestaurantsActivity"
+            android:screenOrientation="portrait"
             android:label="@string/restaurants">
         </activity>
         <!--
@@ -56,6 +61,7 @@
 
         <activity
             android:name=".view.activity.FindPlacesActivity"
+            android:screenOrientation="portrait"
             android:label="@string/map_bookmarks">
         </activity>
     </application>
