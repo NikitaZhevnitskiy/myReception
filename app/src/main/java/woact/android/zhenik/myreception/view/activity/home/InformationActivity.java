@@ -53,7 +53,6 @@ import static woact.android.zhenik.myreception.utils.ReceptionAppContext.hotel;
 
 public class InformationActivity extends AppCompatActivity implements OnMapReadyCallback,
         IconSwitch.CheckedChangeListener, ValueAnimator.AnimatorUpdateListener
-//        , View.OnClickListener
 {
 
     private TextView hotelName;
@@ -74,7 +73,6 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
     private Point revealCenter;
 
     private Window window;
-    //    private View toolbar;
     private Toolbar toolbar;
     private View content;
     private IconSwitch iconSwitch;
@@ -205,9 +203,6 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-//        googleMap.addMarker(new MarkerOptions()
-//                              .position(new LatLng(0, 0))
-//                              .title("Marker"));
 
         Geocoder geocoder = new Geocoder(getApplicationContext());
         List<Address> addresses = new ArrayList<>();
@@ -223,8 +218,6 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
             double longitude = addresses.get(0).getLongitude();
             LatLng place = new LatLng(latitude, longitude);
             map.addMarker(new MarkerOptions().position(place).title(hotel.getName()));
-//            map.moveCamera(CameraUpdateFactory.newLatLng(westerdals));
-
 
             CameraPosition googlePlex = CameraPosition.builder()
                     .target(place)
@@ -236,34 +229,6 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
             map.moveCamera(CameraUpdateFactory.newCameraPosition(googlePlex));
         }
     }
-
-//    @Override
-//    public void onClick(View v) {
-//        switch (v.getId()) {
-//            case R.id.credit_polyak:
-//                open(URL_GITHUB_POLYAK);
-//                break;
-//            case R.id.credit_yarolegovich:
-//                open(URL_GITHUB_YAROLEGOVICH);
-//                break;
-//            case R.id.credit_prokhoda:
-//                open(URL_DRIBBBLE_PROKHODA);
-//                break;
-//        }
-//    }
-//
-//    private void open(Uri url) {
-//        Intent intent = new Intent(Intent.ACTION_VIEW);
-//        intent.setData(url);
-//        if (intent.resolveActivity(getPackageManager()) != null) {
-//            startActivity(intent);
-//        } else {
-//            Snackbar.make(content,
-//                          R.string.msg_no_browser,
-//                          Snackbar.LENGTH_SHORT)
-//                    .show();
-//        }
-//    }
 
     private void initAnimationRelatedFields() {
         revealCenter = new Point();
@@ -277,7 +242,13 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
     private void initColors() {
         toolbarColors = new int[IconSwitch.Checked.values().length];
         statusBarColors = new int[toolbarColors.length];
-        toolbarColors[IconSwitch.Checked.LEFT.ordinal()] = color(R.color.informationPrimary);
+//        toolbarColors[IconSwitch.Checked.LEFT.ordinal()] = color(R.color.informationPrimary);
+//        statusBarColors[IconSwitch.Checked.LEFT.ordinal()] = color(R.color.informationPrimaryDark);
+//        toolbarColors[IconSwitch.Checked.RIGHT.ordinal()] = color(R.color.mapPrimary);
+//        statusBarColors[IconSwitch.Checked.RIGHT.ordinal()] = color(R.color.mapPrimaryDark);
+
+
+        toolbarColors[IconSwitch.Checked.LEFT.ordinal()] = color(R.color.colorPrimary);
         statusBarColors[IconSwitch.Checked.LEFT.ordinal()] = color(R.color.informationPrimaryDark);
         toolbarColors[IconSwitch.Checked.RIGHT.ordinal()] = color(R.color.mapPrimary);
         statusBarColors[IconSwitch.Checked.RIGHT.ordinal()] = color(R.color.mapPrimaryDark);
@@ -298,12 +269,6 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
     private int color(@ColorRes int res) {
         return ContextCompat.getColor(this, res);
     }
-
-
-
-
-
-
 
     // Back btn in action bar
     @Override
