@@ -13,6 +13,7 @@ import woact.android.zhenik.myreception.R;
 import woact.android.zhenik.myreception.datalayer.CacheDataLoader;
 import woact.android.zhenik.myreception.datalayer.DatabaseHelper;
 import woact.android.zhenik.myreception.datalayer.DatabaseManager;
+import woact.android.zhenik.myreception.datalayer.dao.CacheDao;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 try {
                     super.run();
-                    sleep(2000);  //Delay of 10 seconds
+                    sleep(2000);  //Delay of 2 seconds // freeze: emulate loading screen
                 } catch (Exception e) {
 
                 } finally {
@@ -55,13 +56,16 @@ public class MainActivity extends AppCompatActivity {
      * DB setup once only
      * */
     private void databaseSetup(){
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        if (!prefs.getBoolean("firstTime", false)) {
+//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+//        if (!prefs.getBoolean("firstTime", false)) {
+//            cdf.createDummyData();
+//            SharedPreferences.Editor editor = prefs.edit();
+//            editor.putBoolean("firstTime", true);
+////            editor.commit();
+//            editor.apply();
+//        }
+        if (CacheDao.getInstance().getHotelDao().getHotels().size() < 1) {
             cdf.createDummyData();
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putBoolean("firstTime", true);
-//            editor.commit();
-            editor.apply();
         }
     }
 
