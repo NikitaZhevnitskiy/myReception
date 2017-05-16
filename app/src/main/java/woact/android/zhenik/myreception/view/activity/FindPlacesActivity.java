@@ -1,11 +1,13 @@
 package woact.android.zhenik.myreception.view.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,7 +37,7 @@ import woact.android.zhenik.myreception.datalayer.dao.CacheDao;
 import woact.android.zhenik.myreception.datalayer.entities.Hotel;
 import woact.android.zhenik.myreception.utils.ReceptionAppContext;
 
-public class FindPlacesActivity extends FragmentActivity implements OnMapReadyCallback {
+public class FindPlacesActivity extends AppCompatActivity implements OnMapReadyCallback {
 
 
     public static final String TAG = "FindPlacesActivity:> ";
@@ -51,9 +53,9 @@ public class FindPlacesActivity extends FragmentActivity implements OnMapReadyCa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_places);
-        setActionBar(new Toolbar(this));
-//        getActionBar().setDisplayHomeAsUpEnabled(true);
-//        getActionBar().setTitle("Find near by");
+//        setActionBar(new Toolbar(this));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         //Handle when activity is recreated like on orientation Change
         MapFragment mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.find_places_map);
@@ -61,6 +63,7 @@ public class FindPlacesActivity extends FragmentActivity implements OnMapReadyCa
        hotel = CacheDao.getInstance().getHotelDao().getHotel(ReceptionAppContext.getHotelId());
         initFindButton();
     }
+
     // Back btn in action bar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -70,6 +73,7 @@ public class FindPlacesActivity extends FragmentActivity implements OnMapReadyCa
 
     private void initFindButton(){
         btnFindPlaces=(Button)findViewById(R.id.find_places_btn);
+        btnFindPlaces.setText("Make new marker");
         btnFindPlaces.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,7 +117,7 @@ public class FindPlacesActivity extends FragmentActivity implements OnMapReadyCa
                 Place place = PlacePicker.getPlace(this, data);
                 // do smth with place - make a route f.example
                 String toastMsg = String.format("Place: %s", place.toString());
-                Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
+//                Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
                 addMarker(place);
 //                initCardPlace(place);
             }
@@ -159,34 +163,4 @@ public class FindPlacesActivity extends FragmentActivity implements OnMapReadyCa
             map.moveCamera(CameraUpdateFactory.newCameraPosition(googlePlex));
         }
     }
-
-
-//
-//    private void displayPlace( Place place ) {
-//        if( place == null )
-//            return;
-//
-//        String content = "";
-//        if( !TextUtils.isEmpty(place.getName() ) ) {
-//            content += "Name: " + place.getName() + "\n";
-//        }
-//        if( !TextUtils.isEmpty( place.getAddress() ) ) {
-//            content += "Address: " + place.getAddress() + "\n";
-//        }
-//        if( !TextUtils.isEmpty( place.getPhoneNumber() ) ) {
-//            content += "Phone: " + place.getPhoneNumber();
-//        }
-//    }
-
-//    private void initCardPlace(Place place){
-//        CardView card = (CardView)findViewById(R.id.place_card);
-//        TextView placeName = (TextView) card.findViewById(R.id.place_name);
-//        TextView paceAddress = (TextView) card.findViewById(R.id.place_address);
-//        TextView website = (TextView) card.findViewById(R.id.place_web);
-//        TextView phone = (TextView) card.findViewById(R.id.place_phone);
-//        placeName.setText(String.valueOf(place.getName()));
-//        paceAddress.setText(String.valueOf(place.getAddress()));
-//        website.setText(String.valueOf(place.getWebsiteUri()));
-//        phone.setText(String.valueOf(place.getPhoneNumber()));
-//    }
 }
