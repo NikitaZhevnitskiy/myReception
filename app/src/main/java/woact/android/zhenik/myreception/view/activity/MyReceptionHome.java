@@ -5,6 +5,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -38,7 +39,8 @@ public class MyReceptionHome extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.action_bar_navigation, menu);
         Drawable icon = menu.getItem(0).getIcon();
         icon.mutate();
-        icon.setTint(getResources().getColor(android.R.color.white));
+//        icon.setTint(getResources().getColor(android.R.color.white));
+        icon.setTint(ContextCompat.getColor(this, android.R.color.white));
 //        icon.setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
         return true;
     }
