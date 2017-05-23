@@ -15,7 +15,6 @@ import static woact.android.zhenik.myreception.datalayer.DatabaseHelper.*;
 
 /**
  * CacheDataLoader uses only
- * for development mode
  * to fill database with data
  * */
 

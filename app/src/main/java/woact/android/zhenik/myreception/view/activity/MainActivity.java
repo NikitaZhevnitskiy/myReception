@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * DB setup once only
+     * dummy data load
      * */
     private void databaseSetup(){
 //        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
